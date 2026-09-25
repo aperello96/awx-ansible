@@ -4,13 +4,17 @@
 ## Inventario Ubuntu
 
 El inventario está en `inventories/pro/hosts.yml`. Contiene ocho máquinas,
-agrupadas en `dns`, `wireguard`, `loadbalancer`, `unifi` e `ibk`.
-Todos estos grupos son hijos de `ubuntu`: un playbook con `hosts: ubuntu`
-incluye las ocho máquinas sin duplicarlas.
+distribuidas entre los grupos `containers` y `vms`, ambos hijos de `ubuntu`:
 
-Antes de usarlo, sustituye todas las IP `192.0.2.*` por las reales. Son
-direcciones de ejemplo, no direcciones obtenidas de las máquinas. Confirma
-también los nombres que aparecían truncados en la captura de Proxmox.
+- `containers`: siete contenedores, agrupados en `dns`, `wireguard`,
+  `loadbalancer` y `unifi`.
+- `vms`: únicamente `ibk.perelohome.com`, dentro del grupo funcional `ibk`.
+
+Un playbook con `hosts: ubuntu` incluye las ocho máquinas sin duplicarlas.
+Usa `hosts: containers` o `hosts: vms` para seleccionar por tipo de máquina.
+
+Antes de usarlo, confirma las IP y los nombres que aparecían truncados en la
+captura de Proxmox.
 
 Se incluyen los balanceadores aunque su nombre contenga `.okd`. Se excluyen
 el host `operator.okd`, los masters/workers de OKD, los nodos Proxmox y la
