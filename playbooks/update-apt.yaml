@@ -1,0 +1,13 @@
+---
+- name: Actualizar paquetes de Ubuntu
+  hosts: ubuntu
+  become: true
+  serial: 1
+  any_errors_fatal: true
+
+  tasks:
+    - name: Actualizar caché y paquetes
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+        upgrade: safe
