@@ -1,0 +1,16 @@
+---
+- name: check disk space
+  hosts: all
+  tasks:
+    - name: get disk usage
+      command: df -h
+      register: disk_usage
+    - name: check disk space available
+      shell: df -h / | awk 'NR==2 {print $5}'
+      register: disk_usage
+    - name: Send slack message when disk space is over 80%
+      slack:
+        token: "{{ slack_token }}"
+        channel: "{{ slack_channel }}"
+        msg: "Disk space on {{ inventory_hostname }} is {{  disk_usage.stdout  }}. Please check it ASAP!"
+      when: disk_usage.stdout[:-1]|int > 80
