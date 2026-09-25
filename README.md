@@ -3,7 +3,8 @@
 
 ## Inventario Ubuntu
 
-El inventario está en `inventories/pro/hosts.yml`. Contiene ocho máquinas,
+El inventario está en `inventories/pro/hosts.ini`, en formato INI con grupos
+entre corchetes y relaciones de grupos mediante `[grupo:children]`. Contiene ocho máquinas,
 distribuidas entre los grupos `containers` y `vms`, ambos hijos de `ubuntu`:
 
 - `containers`: siete contenedores, agrupados en `dns`, `wireguard`,
@@ -28,7 +29,7 @@ Después de hacer commit y push del inventario:
    Activa **Update Revision on Launch**, con **Cache Timeout** a `0`.
 2. Crea un inventario y añade una fuente (**Sources**) de tipo
    **Sourced from a Project**. Selecciona el proyecto anterior y el archivo
-   `inventories/pro/hosts.yml` en **Inventory file**.
+   `inventories/pro/hosts.ini` en **Inventory file**.
 3. Activa **Update on Launch** en la fuente, con **Cache Timeout** a `0`.
    Así AWX actualizará la fuente antes de cada ejecución que use el inventario
    y comprobará la revisión del proyecto antes de importar sus hosts.
